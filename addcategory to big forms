@@ -1,0 +1,10 @@
+
+function scopeCategory($query, $category)
+{
+    $cat_query = clone $datatype;
+    $categories = $cat_query->where('type', 'category)->get();
+    $cat_from = $categories->where('field', $category)[0]->order;
+    $cat_to = $categories->where('order', '>' , $cat_from)[0]->order;
+
+    return $query->where('order', '>=', $cat_from)->where('order', '<', $cat_to);
+}
